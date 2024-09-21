@@ -20,10 +20,11 @@ export default defineConfig({
     test: {
         // enable jest-like global test APIs
         globals: true,
-        // simulate DOM with happy-dom
-        // (requires installing happy-dom as a peer dependency)
-        environment: 'happy-dom',
+        // simulate DOM with jsdom
+        environment: 'jsdom',
+        // exclude node_modules
+        exclude: ["node_modules"],
         // support tsx/jsx
-        include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        include: ['./resources/js/**/__tests__/*.{test,unit,spec}.{js,ts,jsx,tsx}'],
     },
 });

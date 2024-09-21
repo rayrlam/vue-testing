@@ -1,7 +1,8 @@
 # Vue.js Testing Playground
 
 ![Laravel](https://img.shields.io/badge/Laravel-^11.23.5-blue)
-![PHP](https://img.shields.io/badge/PHP-^v8.2.15-yellow)
+![Vue](https://img.shields.io/badge/Vue-^3.5.7-yellow)
+![Vitest](https://img.shields.io/badge/Vitest-^3.5.7-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Overview
@@ -21,14 +22,19 @@ This repository is a submodule of the larger Testing Playground project. It focu
 - Todo item categorization and filtering
 - Due date and priority setting for todo items
 
-## Testing Focus
+## Testing with Vitest
 
-We will be implementing several types of tests, including:
+This project uses Vitest for unit and component testing of Vue applications.
 
-- Unit tests for Vue components
-- Integration tests for component interactions
-- End-to-end (E2E) tests for user workflows
-- API tests for backend interactions
+### Why Vitest?
+
+Vitest is a blazing fast unit test framework powered by Vite. It's designed to be easy to use with Vue.js components and applications. Some key features include:
+
+- Fast execution and hot module replacement (HMR) support
+- Vue Test Utils integration for component testing
+- Jest-compatible API
+- Built-in code coverage
+- ESM, TypeScript and JSX support out of the box
 
 ## Getting Started
 
@@ -97,10 +103,15 @@ We will be implementing several types of tests, including:
 
 ## Running Tests
 
-- To run PHP tests:
+To run PHP tests:
 
     ```
     php artisan test
+    ```
+To run Vitest:
+
+    ```
+    npm run test
     ```
 
 ## Contributing

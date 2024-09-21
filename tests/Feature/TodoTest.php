@@ -18,6 +18,6 @@ class TodoTest extends TestCase
             'title' => 'My First TODO'
         ]);
 
-        $response->assertEquals('My First TODO', $response['title']);
+        $this->assertEquals('My First TODO', $response['title']);
     }
 }

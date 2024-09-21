@@ -1,19 +1,10 @@
 <?php
 
-use App\Models\Todo;
-use Illuminate\Http\Request;
+use App\Http\Controllers\TodosController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/todo', function(Request $request){
-
-    $todo = Todo::create([
-        'title' => $request->title
-    ]);
-
-    return $todo;
-});
+Route::post('/todo', [TodosController::class,'store']);

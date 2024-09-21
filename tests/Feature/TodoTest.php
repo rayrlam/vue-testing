@@ -2,12 +2,16 @@
 
 namespace Tests\Feature;
 
+use App\Models\Todo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TodoTest extends TestCase
 {
+
+    use RefreshDatabase;
+
     /**
      * Test a Todo can be created.
      */
@@ -33,9 +37,7 @@ class TodoTest extends TestCase
             'title' => 'My Second TODO'
         ]);
 
-        tap(Todo::latest(), function($todo){
-            $this->assertEquals('My Second TODO', $todo->title);
-        });
-
+        $todo = Todo::latest();
+        $this->assertEquals('My Second TODO', $todo->title);
     }
 }

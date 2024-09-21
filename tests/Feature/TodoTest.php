@@ -37,7 +37,8 @@ class TodoTest extends TestCase
             'title' => 'My Second TODO'
         ]);
 
-        $todo = Todo::latest();
+        $todo = Todo::latest('id')->first();
+
         $this->assertEquals('My Second TODO', $todo->title);
     }
 }

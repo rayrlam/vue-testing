@@ -17,7 +17,7 @@ describe('Close Button', () => {
         const wrapper = mount(Alert);
 
         const alert = wrapper.find('[data-testid="alert"]')
-        expect(alert.exists()).toBe(true);
+        expect(alert.exists()).toBeTruthy();
 
         await wrapper.find('[data-testid="close"]').trigger('click');
 
@@ -25,6 +25,6 @@ describe('Close Button', () => {
         await wrapper.vm.$nextTick();
 
         // Check if the alert is no longer in the DOM
-        expect(wrapper.find('[data-testid="alert"]').exists()).toBe(false);
+        expect(wrapper.find('[data-testid="alert"]').exists()).toBeFalsy();
     })
 })

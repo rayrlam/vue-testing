@@ -41,4 +41,14 @@ class TodoTest extends TestCase
 
         $this->assertEquals('My Second TODO', $todo->title);
     }
+
+     /**
+     * Test two Todos can be created.
+     */
+    public function test_a_todo_can_be_completed(): void
+    {
+        $todo = Todo::factory()->create();
+
+        dd($todo);
+    }
 }

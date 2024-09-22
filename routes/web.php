@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::post('/todo', [TodosController::class,'store']);
+Route::patch('/todo/{todo}', [TodosController::class, 'update'])->name('todo.update');

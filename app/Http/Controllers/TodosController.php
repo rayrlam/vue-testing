@@ -12,4 +12,9 @@ class TodosController extends Controller
             'title' => $request->title
         ]);
     }
+
+    public function update(Request $request, Todo $todo){
+        $todo->update($request->only(['completed']));
+        return response()->json($todo);
+    }
 }

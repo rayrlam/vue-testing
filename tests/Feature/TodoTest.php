@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Todo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TodoTest extends TestCase
@@ -47,14 +46,12 @@ class TodoTest extends TestCase
      */
     public function test_a_todo_can_be_completed(): void
     {
-        Todo::factory()->create(['title' => 'Another Todo']);
+        $todo = Todo::factory()->create(['title' => 'Another Todo']);
 
-        $response = $this->patch('todo/1', ['completed' => true]);
+        $response = $this->patch(route('todo.update', $todo), ['completed' => true]);
 
         $response->assertOk();
-
-        $todo = Todo::first(); 
-        $this->assertEquals('Another Todo', $todo->title);
-        $this->assertTrue($todo->completed);
+        
+        $this->assertTrue(!!$todo->fresh()->completed);
     }
 }

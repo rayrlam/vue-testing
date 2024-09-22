@@ -51,7 +51,8 @@ class TodoTest extends TestCase
         $response = $this->patch(route('todo.update', $todo), ['completed' => true]);
 
         $response->assertOk();
-        
+
+        // !! to change the value of completed from 1 to true 
         $this->assertTrue(!!$todo->fresh()->completed);
     }
 }

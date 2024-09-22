@@ -18,4 +18,14 @@ class TodoTest extends TestCase
         $todo = Todo::factory()->create();
         $this->assertEquals(0, $todo->completed);
     }
+
+    /**
+     * Test can set to completed by mark completed functions
+     */
+    public function test_can_set_to_completed_by_mark_completed_function(): void
+    {
+        $todo = Todo::factory()->create();
+        $todo->markCompleted();
+        $this->assertTrue(!!$todo->completed);
+    }
 }

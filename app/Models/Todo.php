@@ -10,4 +10,8 @@ class Todo extends Model
     use HasFactory;
 
     protected $fillable = ['title','completed'];
+
+    public function markCompleted(){
+        return $this->update(['completed' => 1]);
+    }
 }

@@ -28,4 +28,16 @@ class TodoTest extends TestCase
         $todo->markCompleted();
         $this->assertTrue(!!$todo->completed);
     }
+
+     /**
+     * Test can get completed by attribute
+     */
+    public function test_can_get_completed_by_attribute(): void
+    {
+        $todo = Todo::factory()->create();
+        $this->assertFalse($todo->isCompleted);
+
+        $todo->markCompleted();
+        $this->assertTrue($todo->isCompleted);
+    }
 }

@@ -14,4 +14,8 @@ class Todo extends Model
     public function markCompleted(){
         return $this->update(['completed' => 1]);
     }
+
+    public function getIsCompletedAttribute(){
+        return !!$this->completed;
+    }
 }

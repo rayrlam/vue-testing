@@ -17,4 +17,10 @@ class TodosController extends Controller
         $todo->update($request->only(['completed']));
         return response()->json($todo);
     }
+
+    public function markCompleted($todo_id){
+        $todo = Todo::find($todo_id);
+        $todo->update(['completed'=>1]);
+        return $todo;
+    }
 }

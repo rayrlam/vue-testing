@@ -69,4 +69,31 @@ class TodoTest extends TestCase
 
         $this->assertEquals(1, $todo->fresh()->completed);
     }
+
+    /**
+     * Test todo title cannot be empty
+     * 
+     */
+    public function test_todo_title_cannot_be_empty(): void
+    {
+
+        $response = $this->postJson('/todo', ['title' => '']);
+
+        $response->assertStatus(422)
+                 ->assertJsonValidationErrors('title');
+    }
+
+    /**
+     * Test can create todo with valid title
+     * 
+     */
+    public function test_can_create_todo_with_valid_title()
+    {
+        $response = $this->postJson('/todo', ['title' => 'Test Todo']);
+
+        $response->assertStatus(201)
+                 ->assertJson(['title' => 'Test Todo']);
+
+        $this->assertDatabaseHas('todos', ['title' => 'Test Todo']);
+    }
 }

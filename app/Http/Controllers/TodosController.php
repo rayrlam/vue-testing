@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 class TodosController extends Controller
 {
     public function store(Request $request){
-        return Todo::create([
-            'title' => $request->title
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
         ]);
+
+        $todo = Todo::create($validated);
+
+        return response()->json($todo, 201);
     }
 
     public function update(Request $request, Todo $todo){

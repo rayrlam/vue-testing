@@ -43,12 +43,18 @@ class TodoTest extends TestCase
     }
 
      /**
-     * Test two Todos can be created.
+     * Test a Todo can be completed.
      */
     public function test_a_todo_can_be_completed(): void
     {
-        $todo = Todo::factory()->create();
+        Todo::factory()->create(['title' => 'Another Todo']);
 
-        dd($todo);
+        $response = $this->patch('todo/1', ['completed' => true]);
+
+        $response->assertOk();
+
+        $todo = Todo::first(); 
+        $this->assertEquals('Another Todo', $todo->title);
+        $this->assertTrue($todo->completed);
     }
 }

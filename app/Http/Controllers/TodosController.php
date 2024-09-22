@@ -20,7 +20,7 @@ class TodosController extends Controller
 
     public function markCompleted($todo_id){
         $todo = Todo::find($todo_id);
-        $todo->update(['completed'=>1]);
+        $todo->markCompleted();
         return response()->json($todo);
     }
 }

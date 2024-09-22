@@ -41,7 +41,7 @@ class TodoTest extends TestCase
         $this->assertEquals('My Second TODO', $todo->title);
     }
 
-     /**
+    /**
      * Test a Todo can be completed.
      */
     public function test_a_todo_can_be_completed(): void
@@ -54,5 +54,19 @@ class TodoTest extends TestCase
 
         // !! to change the value of completed from 1 to true 
         $this->assertTrue(!!$todo->fresh()->completed);
+    }
+
+    /**
+     * Test a mark completed
+     */
+    public function test_mark_completed(): void
+    {
+        $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
+
+        $response = $this->patch("todo/$todo->id/mark/completed");
+
+        $response->assertOk();
+
+        $this->assertEquals(1, $todo->fresh()->completed);
     }
 }

@@ -16,7 +16,7 @@ class TodoTest extends TestCase
      */
     public function test_a_todo_can_be_created(): void
     {
-        $response = $this->post('/todo', [
+        $response = $this->post(route('todo.store'), [
             'title' => 'My First TODO'
         ]);
 
@@ -28,11 +28,11 @@ class TodoTest extends TestCase
      */
     public function test_two_todos_can_be_created(): void
     {
-        $this->post('/todo', [
+        $this->post(route('todo.store'), [
             'title' => 'My First TODO'
         ]);
 
-        $this->post('/todo', [
+        $this->post(route('todo.store'), [
             'title' => 'My Second TODO'
         ]);
 
@@ -76,7 +76,7 @@ class TodoTest extends TestCase
     public function test_todo_title_cannot_be_empty(): void
     {
 
-        $response = $this->postJson('/todo', ['title' => '']);
+        $response = $this->postJson(route('todo.store'), ['title' => '']);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title');
@@ -85,9 +85,9 @@ class TodoTest extends TestCase
     /**
      * Test can create todo with valid title
      */
-    public function test_can_create_todo_with_valid_title()
+    public function test_can_create_todo_with_valid_title(): void
     {
-        $response = $this->postJson('/todo', ['title' => 'Test Todo']);
+        $response = $this->postJson(route('todo.store'), ['title' => 'Test Todo']);
 
         $response->assertStatus(201)
                  ->assertJson(['title' => 'Test Todo']);
@@ -98,9 +98,9 @@ class TodoTest extends TestCase
     /**
      * Test todo error message for missing title
      */
-    public function test_todo_error_message_for_missing_title()
+    public function test_todo_error_message_for_missing_title(): void
     {
-        $response = $this->postJson('/todo', []);
+        $response = $this->postJson(route('todo.store'), []);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title')
@@ -110,9 +110,9 @@ class TodoTest extends TestCase
     /**
      * Test error message for title min length
      */
-    public function test_error_message_for_title_min_length()
+    public function test_error_message_for_title_min_length(): void
     {
-        $response = $this->postJson('/todo', ['title'=>'ab']);
+        $response = $this->postJson(route('todo.store'), ['title'=>'ab']);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title')
@@ -124,7 +124,7 @@ class TodoTest extends TestCase
      */
     public function test_error_message_for_title_max_length()
     {
-        $response = $this->postJson('/todo', ['title'=>str()->random(256)]);
+        $response = $this->postJson(route('todo.store'), ['title'=>str()->random(256)]);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title')

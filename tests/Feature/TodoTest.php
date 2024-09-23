@@ -63,7 +63,7 @@ class TodoTest extends TestCase
     {
         $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
 
-        $response = $this->patch("todo/$todo->id/mark/completed");
+        $response = $this->patch(route('todo.completed', $todo->id));
 
         $response->assertOk();
 

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class TodosController extends Controller
 {
-    public function store(Request $request){
+    public function store(TodoRequest $request){
         $validated = $request->validate([
             'title' => 'required|string|max:255',
         ]);

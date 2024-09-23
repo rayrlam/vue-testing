@@ -72,7 +72,6 @@ class TodoTest extends TestCase
 
     /**
      * Test todo title cannot be empty
-     * 
      */
     public function test_todo_title_cannot_be_empty(): void
     {
@@ -85,7 +84,6 @@ class TodoTest extends TestCase
 
     /**
      * Test can create todo with valid title
-     * 
      */
     public function test_can_create_todo_with_valid_title()
     {
@@ -95,5 +93,18 @@ class TodoTest extends TestCase
                  ->assertJson(['title' => 'Test Todo']);
 
         $this->assertDatabaseHas('todos', ['title' => 'Test Todo']);
+    }
+
+    
+    /**
+     * Test todo error message for missing title
+     */
+    public function test_todo_error_message_for_missing_title()
+    {
+        $response = $this->postJson('/todo', []);
+
+        $response->assertStatus(422)
+                 ->assertJsonValidationErrors('title')
+                 ->assertJson(['message' => 'The title is required.',]);
     }
 }

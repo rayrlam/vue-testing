@@ -94,7 +94,6 @@ class TodoTest extends TestCase
 
         $this->assertDatabaseHas('todos', ['title' => 'Test Todo']);
     }
-
     
     /**
      * Test todo error message for missing title
@@ -105,6 +104,18 @@ class TodoTest extends TestCase
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title')
-                 ->assertJson(['message' => 'The title is required.',]);
+                 ->assertJson(['message' => 'The title is required.']);
+    }
+
+    /**
+     * Test todo error message for min length
+     */
+    public function test_todo_error_message_for_min_length()
+    {
+        $response = $this->postJson('/todo', ['title'=>'ab']);
+
+        $response->assertStatus(422)
+                 ->assertJsonValidationErrors('title')
+                 ->assertJson(['message' => 'The title should be at least 3 characters.']);
     }
 }

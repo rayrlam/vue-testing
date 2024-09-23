@@ -22,13 +22,15 @@ class TodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:3'
+            'title' => 'required|min:3|max:255'
         ];
     }
 
     public function messages(){
         return [
-            'title.required' => 'The title is required.'
+            'title.required' => 'The title is required.',
+            'title.min' => 'The title should be at least 3 characters.',
+            'title.max' => 'The title should not more than 255 characters.',
         ];
     }
 }

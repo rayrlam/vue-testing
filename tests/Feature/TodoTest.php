@@ -108,14 +108,26 @@ class TodoTest extends TestCase
     }
 
     /**
-     * Test todo error message for min length
+     * Test error message for title min length
      */
-    public function test_todo_error_message_for_min_length()
+    public function test_error_message_for_title_min_length()
     {
         $response = $this->postJson('/todo', ['title'=>'ab']);
 
         $response->assertStatus(422)
                  ->assertJsonValidationErrors('title')
                  ->assertJson(['message' => 'The title should be at least 3 characters.']);
+    }
+
+    /**
+     * Test error message for title max length
+     */
+    public function test_error_message_for_title_max_length()
+    {
+        $response = $this->postJson('/todo', ['title'=>str()->random(256)]);
+
+        $response->assertStatus(422)
+                 ->assertJsonValidationErrors('title')
+                 ->assertJson(['message' => 'The title should not more than 255 characters.']);
     }
 }

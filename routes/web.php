@@ -7,6 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/todos', [TodosController::class,'index'])->name('todo.index');
 Route::post('/todo', [TodosController::class,'store'])->name('todo.store');
 Route::patch('/todo/{todo}', [TodosController::class, 'update'])->name('todo.update');
 Route::patch('/todo/{todo_id}/mark/completed', [TodosController::class, 'markCompleted'])->name('todo.completed');

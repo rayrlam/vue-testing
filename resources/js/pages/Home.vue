@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-    import { onBeforeMount, ref } from 'vue';
+    import { onBeforeMount } from 'vue';
     import { useTodoStore } from '../stores/TodoStore';
 
     const todoStore = useTodoStore();

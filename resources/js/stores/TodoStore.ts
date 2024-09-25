@@ -1,16 +1,15 @@
-import {defineStore} from 'pinia';
-import {ref} from 'vue';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 import axios from "axios";
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
-export const useTodoStore = defineStore('todos', () => {
+export const useTodoStore = defineStore('todoList', () => {
     const todos = ref([]);
-
     const lastFetch = ref(null);
 
-    const fetch = async() => {
+    const fetch = async () => {
         const now = DateTime.now();
-        if(!lastFetch.value || lastFetch.value.plus({seconds:5}).toMillis() <= now.toMillis()){
+        if (!lastFetch.value || lastFetch.value.plus({ seconds: 60 }).toMillis() <= now.toMillis()) {
             const response = await axios.get('todos');
             todos.value = response.data.todos;
             lastFetch.value = now;

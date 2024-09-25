@@ -13,16 +13,12 @@
 </template>
 
 <script setup lang="ts">
-    import { onBeforeMount } from 'vue';
-    import { useTodoStore } from '../stores/TodoStore';
+import { onBeforeMount } from 'vue';
+import { useTodoStore } from '../stores/TodoStore';
 
-    const todoStore = useTodoStore();
+const todoStore = useTodoStore();
 
-    onBeforeMount(() => {
-        todoStore.fetch()
-    });
+onBeforeMount(() => {
+    todoStore.fetch()
+});
 </script>
-
-<style scoped>
-
-</style>

@@ -1,10 +1,11 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
-import { useTodoStore } from "../../stores/TodoStore";
-import TodoList from "../Home.vue";
+import { useTodoListStore } from "../../stores/TodoListStore";
+import TodoList from "../TodoList.vue"
 import axios from "axios";
-import sinon from 'sinon';
+
+vi.mock('axios');
 
 const expectedResponse = {
     data: {
@@ -21,18 +22,17 @@ const expectedResponse = {
     }
 };
 
-describe('Home', () => {
+describe('TodoList', () => {
     let wrapper;
     let store;
-    let axiosStub;
 
     beforeEach(() => {
         const pinia = createTestingPinia({
-            createSpy: sinon.spy,
+            createSpy: vi.fn,
             stubActions: false
         });
 
-        axiosStub = sinon.stub(axios, "get").resolves(expectedResponse);
+        vi.mocked(axios.get).mockResolvedValue(expectedResponse);
 
         wrapper = mount(TodoList, {
             global: {
@@ -40,11 +40,11 @@ describe('Home', () => {
             },
         });
 
-        store = useTodoStore();
+        store = useTodoListStore();
     });
 
     it('can fetch all the todos', async () => {
-
+ 
         // Check if todos are fetched correctly
         expect(store.todos).toEqual(expectedResponse.data.todos);
 
@@ -56,6 +56,6 @@ describe('Home', () => {
 
     afterEach(() => {
         wrapper.unmount();
-        sinon.restore();
+        vi.restoreAllMocks();
     });
 });

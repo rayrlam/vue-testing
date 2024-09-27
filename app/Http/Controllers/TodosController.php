@@ -26,10 +26,10 @@ class TodosController extends Controller
         return response()->json($todo, 201);
     }
 
-    public function update(Request $request, Todo $todo){
-        $todo->update($request->only(['completed']));
+    public function update(TodoRequest $request, Todo $todo){
+        $todo->update($request->only(['title']));
         return response()->json($todo);
-    }
+    }g
 
     public function markUncomplete($todo_id){
         $todo = Todo::find($todo_id);

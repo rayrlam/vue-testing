@@ -42,18 +42,17 @@ class TodoTest extends TestCase
     }
 
     /**
-     * Test a Todo can be completed.
+     * Test a Todo title can be edited.
      */
-    public function test_a_todo_can_be_completed(): void
+    public function test_a_todo_can_be_edited(): void
     {
         $todo = Todo::factory()->create(['title' => 'Another Todo']);
 
-        $response = $this->patch(route('todo.update', $todo), ['completed' => true]);
+        $response = $this->patch(route('todo.update', $todo), ['title' => 'Updated Todo Title']);
 
         $response->assertOk();
 
-        // !! to change the value of completed from 1 to true 
-        $this->assertTrue(!!$todo->fresh()->completed);
+        $this->assertEquals('Updated Todo Title', $todo->fresh()->title);
     }
 
     /**

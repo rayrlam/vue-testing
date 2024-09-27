@@ -104,12 +104,12 @@ Vitest is a blazing fast unit test framework powered by Vite. It's designed to b
 
 ## Running Tests
 
-To run PHP tests:
+- To run PHP tests:
 
     ```
     php artisan test
     ```
-To run Vitest:
+- To run Vitest:
 
     ```
     npm run test

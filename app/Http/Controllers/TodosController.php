@@ -17,12 +17,7 @@ class TodosController extends Controller
     }
 
     public function store(TodoRequest $request){
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
-
-        $todo = Todo::create($validated);
-
+        $todo = Todo::create($request->validated());
         return response()->json($todo, 201);
     }
 

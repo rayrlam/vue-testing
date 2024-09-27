@@ -20,7 +20,6 @@ This repository is a submodule of the larger Testing Playground project. It focu
 This Todo application is being developed using Test-Driven Development (TDD) principles. The main features include:
 
 - Create, Read, Update, and Delete (CRUD) operations for todo items
-- User authentication and authorization
 - Todo item categorization and filtering
 - Due date and priority setting for todo items
 

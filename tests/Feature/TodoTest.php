@@ -57,7 +57,7 @@ class TodoTest extends TestCase
     }
 
     /**
-     * Test a mark completed
+     * Test mark completed
      */
     public function test_mark_completed(): void
     {
@@ -68,6 +68,20 @@ class TodoTest extends TestCase
         $response->assertOk();
 
         $this->assertEquals(1, $todo->fresh()->completed);
+    }
+
+    /**
+     * Test mark uncomplete
+     */
+    public function test_mark_uncomplete(): void
+    {
+        $todo = Todo::factory()->create(['title' => 'Test Mark Uncomplete']);
+
+        $response = $this->patch(route('todo.uncomplete', $todo->id));
+
+        $response->assertOk();
+
+        $this->assertEquals(0, $todo->fresh()->completed);
     }
 
     /**

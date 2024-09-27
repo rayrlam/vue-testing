@@ -15,6 +15,10 @@ class Todo extends Model
         return $this->update(['completed' => 1]);
     }
 
+    public function markUncomplete(){
+        return $this->update(['completed' => 0]);
+    }
+
     public function getIsCompletedAttribute(){
         return !!$this->completed;
     }

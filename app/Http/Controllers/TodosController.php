@@ -31,6 +31,12 @@ class TodosController extends Controller
         return response()->json($todo);
     }
 
+    public function markUncomplete($todo_id){
+        $todo = Todo::find($todo_id);
+        $todo->markUncomplete();
+        return response()->json($todo);
+    }
+
     public function markCompleted($todo_id){
         $todo = Todo::find($todo_id);
         $todo->markCompleted();

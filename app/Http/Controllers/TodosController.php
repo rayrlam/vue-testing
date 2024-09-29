@@ -10,10 +10,8 @@ class TodosController extends Controller
 {
     public function index(){
         return response()->json([
-            'todos' => Todo::all(),
-
+            'todos' => Todo::orderBy('created_at', 'desc')->get()
         ]); 
-        
     }
 
     public function store(TodoRequest $request){

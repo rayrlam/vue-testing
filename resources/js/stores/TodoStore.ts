@@ -1,11 +1,24 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import axios from "axios";
 import { DateTime } from 'luxon';
 
 export const useTodoStore = defineStore('todoList', () => {
     const todos = ref([]);
     const lastFetch = ref(null);
+
+    const list = computed(() => {
+        return todos.value;
+    });
+
+    const fetchLatest = async () => {
+        try {
+            const response = await axios.get('todos');
+            todos.value = response.data.todos;
+        } catch (error) {
+            console.error('Error fetching todos:', error);
+        }
+    };
 
     const fetch = async () => {
         const now = DateTime.now();
@@ -16,9 +29,26 @@ export const useTodoStore = defineStore('todoList', () => {
         }
     };
 
+    const create = async (title: string) => {
+        await axios.post('/todo', { title: title });
+        lastFetch.value = DateTime.now();
+    };
+
+    const updateStatus = (id: number) => {
+        const todo =  todos.value.find((todo)=>todo.id === id);
+
+        if(todo.status === 'todo') return (todo.status = "in-progress");
+        if(todo.status === 'in-progress') return (todo.status = "completed");
+        if(todo.status === 'completed') return (todo.status = "todo");
+    }
+
     return {
         todos,
         lastFetch,
-        fetch
+        list,
+        fetchLatest,
+        fetch,
+        create,
+        updateStatus,
     };
 });

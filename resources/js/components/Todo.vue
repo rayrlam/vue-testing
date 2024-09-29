@@ -1,7 +1,9 @@
 <template>
     <TodoTitle 
         status="todo" 
-        :title="props.todo.title">
+        :title="props.todo.title"
+        :id="props.todo.id"
+    >
     </TodoTitle>
 </template>
 
@@ -11,6 +13,5 @@
 
     const props = defineProps<{
         todo: Todo;
-        title: string;
     }>();
 </script>

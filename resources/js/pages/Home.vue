@@ -18,7 +18,6 @@
     >
         <Todo :todo="todo" />
     </div>
-
 </template>
 
 <script setup lang="ts">

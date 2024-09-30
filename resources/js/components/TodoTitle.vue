@@ -4,7 +4,13 @@
             {{ props.status }}
         </div>
  
-        <input type="text" class="flex w-full p-2 text-ellipsis" v-model="props.title">
+        <input 
+            type="text" 
+            class="flex w-full p-2 text-ellipsis" 
+            v-model="title" 
+            data-testid="todo-title-input"
+            @blur="$event => updateTitle(props.id, title)"
+        />
 
         <div class="pr-12 cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -15,13 +21,24 @@
 </template>
 
 <script setup lang="ts">
+    import { ref, onBeforeMount } from "vue";
     import {TodoType} from "../types/Todo";
+    import { useTodoStore } from "../stores/TodoStore";
+
+    const {updateTitle} = useTodoStore();
 
     const props = defineProps<{
-        // id: string;
+        id: number;
         title:string;
         status: TodoType;
     }>();
+
+    const title = ref('');
+
+    onBeforeMount(() => {
+        title.value = props.title
+    });
+
 </script>
 
 <style scoped>

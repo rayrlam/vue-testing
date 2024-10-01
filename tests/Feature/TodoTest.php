@@ -143,4 +143,15 @@ class TodoTest extends TestCase
                  ->assertJsonValidationErrors('title')
                  ->assertJson(['message' => 'The title should not more than 255 characters.']);
     }
+
+    /**
+     * Test can be archived
+     */
+    public function test_can_be_archived()
+    {
+        $todo = Todo::factory()->create();
+        $this->assertNull($todo->fresh()->archived_at);
+        $response = $this->delete(route('todo.archive', ['todo' => $todo->id]));
+        $this->assertNotNull($todo->fresh()->archived_at);
+    }
 }

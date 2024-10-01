@@ -35,4 +35,13 @@ class TodosController extends Controller
         $todo->markCompleted();
         return response()->json($todo);
     }
+
+    public function archive(Todo $todo){
+        $todo->archived_at = now();
+        $todo->update();
+
+        return response()->json([
+            'message' => `{$todo->title} was archived.`
+        ]);
+    }
 }

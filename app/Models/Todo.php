@@ -9,7 +9,7 @@ class Todo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','completed'];
+    protected $fillable = ['title','completed', 'completed_at','archived_at'];
 
     public function markCompleted(){
         return $this->update(['completed' => 1]);
@@ -21,5 +21,10 @@ class Todo extends Model
 
     public function getIsCompletedAttribute(){
         return !!$this->completed;
+    }
+
+    public function archive(){
+        $this->archived_at = now();
+        $this->update();
     }
 }

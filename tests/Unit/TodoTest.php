@@ -29,7 +29,7 @@ class TodoTest extends TestCase
         $this->assertTrue(!!$todo->completed);
     }
 
-     /**
+    /**
      * Test can get completed by attribute
      */
     public function test_can_get_completed_by_attribute(): void
@@ -39,5 +39,17 @@ class TodoTest extends TestCase
 
         $todo->markCompleted();
         $this->assertTrue($todo->isCompleted);
+    }
+
+    /**
+     * Test todo can be archived
+     */
+    public function test_todo_can_be_archived(): void
+    {
+        $todo = Todo::factory()->create();
+        $this->assertNull($todo->archived_at);
+
+        $todo->archive();
+        $this->assertNotNull($todo->archived_at);
     }
 }

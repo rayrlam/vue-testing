@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->boolean('completed')->default(0);
+            $table->timestamp('completed_at')->nullable();
+            $table->timestamp('archived_at')->nullable();
             $table->timestamps();
         });
     }

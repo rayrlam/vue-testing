@@ -16,7 +16,9 @@
         :key="todo?.id" 
         data-testid="todo-list-item"
     >
-        <Todo :todo="todo" />
+        <transition>
+            <Todo :todo="todo" v-if="!todo.meta?.archived" />
+        </transition>
     </div>
 </template>
 
@@ -44,3 +46,15 @@ const createTodo = async () => {
 };
 
 </script>
+
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

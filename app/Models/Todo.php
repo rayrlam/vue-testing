@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ArchiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,10 @@ class Todo extends Model
     use HasFactory;
 
     protected $fillable = ['title','completed', 'completed_at','archived_at'];
+
+    protected static function booted(): void{
+        static::addGlobalScope(new ArchiveScope);
+    }
 
     public function markCompleted(){
         return $this->update(['completed' => 1]);

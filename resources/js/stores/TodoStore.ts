@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, Ref } from 'vue';
 import axios from "axios";
 import { DateTime } from 'luxon';
+import { Todo } from "../types/Todo";
 
 export const useTodoStore = defineStore('todoList', () => {
-    const todos = ref([]);
+    const todos = <Ref<Todo[]>>ref([]);
     const lastFetch = ref(null);
 
     const list = computed(() => {
@@ -47,6 +48,13 @@ export const useTodoStore = defineStore('todoList', () => {
         return response;
     }
 
+    const archive = async (id: number) => {
+        const response = await axios.delete(`/todo/${id}`);    
+        const todo = todos.value.find((todo) => todo.id === id);
+        todo.meta = {archived: true};
+        return response;
+    }
+
     return {
         todos,
         lastFetch,
@@ -56,5 +64,6 @@ export const useTodoStore = defineStore('todoList', () => {
         create,
         updateStatus,
         updateTitle,
+        archive,
     };
 });

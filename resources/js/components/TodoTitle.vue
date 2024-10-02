@@ -22,7 +22,10 @@
                 v-model:is-open="showActions"  
                 class="bg-stone-200 p-2"  
             >
-                <button class="text-xs px-4 py-2 bg-stone-200  hover:bg-stone-300 w-full">Archive</button>
+                <button 
+                    class="text-xs px-4 py-2 bg-stone-200  hover:bg-stone-300 w-full"
+                    @click="$event => archive(props.id)"
+                >Archive</button>
             </Flyout>
         </div>
     </div>
@@ -34,7 +37,7 @@ import {TodoType} from "../types/Todo";
 import { useTodoStore } from "../stores/TodoStore";
 import Flyout from "./Flyout.vue";
 
-const {updateTitle} = useTodoStore();
+const {updateTitle, archive} = useTodoStore();
 
 const props = defineProps<{
     id: number;
@@ -51,7 +54,3 @@ onBeforeMount(() => {
 });
 
 </script>
-
-<style scoped>
-
-</style>

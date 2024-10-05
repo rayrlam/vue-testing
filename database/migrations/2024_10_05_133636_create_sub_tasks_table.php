@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('body',255);
+            $table->boolean('is_task')->default(false);
             $table->timestamps();
         });
     }

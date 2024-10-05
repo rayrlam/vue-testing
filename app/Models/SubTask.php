@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SubTask extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['body', 'is_task'];
 }

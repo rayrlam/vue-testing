@@ -10,6 +10,9 @@ class SubTaskController extends Controller
 {
     public function store(SubTaskRequest $request){
         $subtask = SubTask::create($request->validated());
-        return response()->json([], 201);
+        return response()->json([
+            'body' => $request->body,
+            'is_task' => $request->body,
+        ], 201);
     }
 }

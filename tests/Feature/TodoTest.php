@@ -156,13 +156,11 @@ class TodoTest extends TestCase
     }
 
     /**
+     * TODO - fix this test later
      * Test archived todos not show at home
      */
-    public function test_archived_todos_not_show_at_home()
-    {
-        $todo = Todo::factory()->count(3)->create();
-
-
- 
-    }
+    // public function test_archived_todos_not_show_at_home()
+    // {
+    //     $todo = Todo::factory()->count(3)->create();
+    // }
 }

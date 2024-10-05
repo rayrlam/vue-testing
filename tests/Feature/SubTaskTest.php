@@ -34,17 +34,19 @@ class SubTaskTest extends TestCase
         $todo = Todo::factory()->create();
         $todo->subTasks()->create(SubTask::factory()->make()->toArray());
 
-        $response = $this->post(route('subtask.store',['type'=>'subtask','type_id' =>$todo->subTasks()->first()->id]),[
-            'body' => 'My First SubTask subtask',
-            'is_task' => false
-        ]);
+        $response = $this->post(route('subtask.store', [
+                'type'=>'subtask','type_id' =>$todo->subTasks()->first()->id
+            ]), [
+                'body' => 'My First SubTask subtask',
+                'is_task' => false
+            ]
+        );
 
         $response->assertStatus(201);
 
-        // tap(SubTask::find($todo->subTask->id), function($subtask) use ($todo){
-        //     $this->assertEquals('My First SubTask subtask', $subtask->body);
-        //     $this->assertFalse($subtask->is_task);
-        // });
- 
+        tap(SubTask::first()->subTasks()->first(), function($subtask) use ($todo){
+            $this->assertEquals('My First SubTask subtask', $subtask->body);
+            $this->assertFalse($subtask->is_task);
+        }); 
     }
 }

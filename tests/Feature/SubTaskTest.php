@@ -12,13 +12,10 @@ class SubTaskTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test subtask can be created.
-     */
-    public function test_subtask_can_be_created(): void
+    public function test_todo_can_have_a_subtask(): void
     {
         $todo = Todo::factory()->create();
-        $response = $this->post(route('subtask.store',['todo'=>$todo->id]), [
+        $response = $this->post(route('subtask.store',['type'=>'todo', 'type_id' => $todo->id]), [
             'body' => 'My First SubTask',
             'is_task' => false
         ]);
@@ -30,4 +27,23 @@ class SubTaskTest extends TestCase
             $this->assertFalse($subtask->is_task);
         });
     }
+
+    // public function test_subtask_can_have_a_subtask(): void
+    // {
+    //     $todo = Todo::factory()->create();
+    //     $todo->subTasks()->create(SubTask::factory()->make()->toArray());
+
+    //     $response = $this->post(route('subtask.store',['type'=>'subtask','type_id' =>$todo->subTasks()->first()->id]),[
+    //         'body' => 'My First SubTask subtask',
+    //         'is_task' => false
+    //     ]);
+
+    //     $response->assertStatus(201);
+
+    //     tap(SubTask::find($todo->subTask->id), function($subtask) use ($todo){
+    //         $this->assertEquals('My First SubTask subtask', $subtask->body);
+    //         $this->assertFalse($subtask->is_task);
+    //     });
+ 
+    // }
 }

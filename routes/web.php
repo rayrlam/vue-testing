@@ -15,4 +15,4 @@ Route::patch('/todo/{todo_id}/mark/completed', [TodosController::class, 'markCom
 Route::patch('/todo/{todo_id}/mark/uncomplete', [TodosController::class, 'markUncomplete'])->name('todo.uncomplete');
 Route::delete('/todo/{todo}', [TodosController::class,'archive'])->name('todo.archive');
 
-Route::post('/todo/{todo}/subtask', [SubTaskController::class,'store'])->name('subtask.store');
+Route::post('/subtask/{type}/{type_id}', [SubTaskController::class,'store'])->name('subtask.store');

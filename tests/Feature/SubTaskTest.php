@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\SubTask;
+use App\Models\Todo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -16,7 +17,8 @@ class SubTaskTest extends TestCase
      */
     public function test_subtask_can_be_created(): void
     {
-        $response = $this->post(route('subtask.store'), [
+        $todo = Todo::factory()->create();
+        $response = $this->post(route('subtask.store',['todo'=>$todo->id]), [
             'body' => 'My First SubTask',
             'is_task' => false
         ]);

@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubTaskRequest;
-use App\Models\SubTask;
+use App\Models\Todo;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class SubTaskController extends Controller
 {
-    public function store(SubTaskRequest $request){
-        $subtask = SubTask::create($request->validated());
-        return response()->json($subtask, 201);
+    public function store(Todo $todo, Request $request){
+        $todo->subTasks()->create([
+            'body' => $request->body,
+            'is_task' => $request->is_task
+        ]);
+
+        return response()->json($todo, 201);
     }
 }

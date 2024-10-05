@@ -32,4 +32,8 @@ class Todo extends Model
         $this->archived_at = now();
         $this->update();
     }
+
+    public function subTasks(){
+        return $this->hasMany(SubTask::class);
+    }
 }

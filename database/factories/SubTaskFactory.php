@@ -17,7 +17,8 @@ class SubTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'body' => $this->faker->sentence(),
+            'is_task' => false
         ];
     }
 }

@@ -22,7 +22,8 @@ class SubTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'body' => 'required|min:3|max:255',
+            'is_task' => 'boolean',
         ];
     }
 }

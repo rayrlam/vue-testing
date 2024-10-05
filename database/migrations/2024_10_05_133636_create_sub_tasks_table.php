@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('sub_tasks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('todo_id');
+            $table->unsignedBigInteger('taskable_id');
+            $table->string('taskable_type', 100);
             $table->string('body',255);
             $table->boolean('is_task')->default(false);
             $table->timestamps();
-            $table->foreign('todo_id')->references('id')->on('todos');
         });
     }
 

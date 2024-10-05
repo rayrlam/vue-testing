@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\ArchiveScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Todo extends Model
 {
@@ -33,7 +34,7 @@ class Todo extends Model
         $this->update();
     }
 
-    public function subTasks(){
-        return $this->hasMany(SubTask::class);
+    public function subTasks(): MorphMany{
+        return $this->morphMany(SubTask::class, 'taskable');
     }
 }

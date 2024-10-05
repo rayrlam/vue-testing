@@ -9,8 +9,6 @@ use Illuminate\Routing\Controller;
 
 class SubTaskController extends Controller
 {
-
-    
     public function store($type, $type_id, Request $request){
         if($class = $this->getClass($type)){
             $model = $class::findOrFail($type_id);

@@ -22,28 +22,29 @@ class SubTaskTest extends TestCase
         
         $response->assertStatus(201);
 
-        tap(SubTask::first(), function($subtask){
+        tap(SubTask::first(), function($subtask) use($todo){
             $this->assertEquals('My First SubTask', $subtask->body);
             $this->assertFalse($subtask->is_task);
+            $this->assertEquals($todo->id, $subtask->taskable_id);
         });
     }
 
-    // public function test_subtask_can_have_a_subtask(): void
-    // {
-    //     $todo = Todo::factory()->create();
-    //     $todo->subTasks()->create(SubTask::factory()->make()->toArray());
+    public function test_subtask_can_have_a_subtask(): void
+    {
+        $todo = Todo::factory()->create();
+        $todo->subTasks()->create(SubTask::factory()->make()->toArray());
 
-    //     $response = $this->post(route('subtask.store',['type'=>'subtask','type_id' =>$todo->subTasks()->first()->id]),[
-    //         'body' => 'My First SubTask subtask',
-    //         'is_task' => false
-    //     ]);
+        $response = $this->post(route('subtask.store',['type'=>'subtask','type_id' =>$todo->subTasks()->first()->id]),[
+            'body' => 'My First SubTask subtask',
+            'is_task' => false
+        ]);
 
-    //     $response->assertStatus(201);
+        $response->assertStatus(201);
 
-    //     tap(SubTask::find($todo->subTask->id), function($subtask) use ($todo){
-    //         $this->assertEquals('My First SubTask subtask', $subtask->body);
-    //         $this->assertFalse($subtask->is_task);
-    //     });
+        // tap(SubTask::find($todo->subTask->id), function($subtask) use ($todo){
+        //     $this->assertEquals('My First SubTask subtask', $subtask->body);
+        //     $this->assertFalse($subtask->is_task);
+        // });
  
-    // }
+    }
 }

@@ -25,8 +25,7 @@ class SubTaskTest extends TestCase
 
         tap(SubTask::first(), function($subtask){
             $this->assertEquals('My First SubTask', $subtask->body);
-            // turn 0 to false
-            $this->assertFalse(!!$subtask->is_task);
+            $this->assertFalse($subtask->is_task);
         });
     }
 }

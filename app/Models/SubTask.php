@@ -10,4 +10,6 @@ class SubTask extends Model
     use HasFactory;
 
     protected $fillable = ['body', 'is_task'];
+
+    protected $casts = ['is_task' => 'boolean'];
 }

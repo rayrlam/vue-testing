@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Models\Scopes\ArchiveScope;
+use App\Traits\Taskable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Todo extends Model
 {
-    use HasFactory;
+    use HasFactory, Taskable;
 
     protected $fillable = ['title','completed', 'completed_at','archived_at'];
 
@@ -32,9 +32,5 @@ class Todo extends Model
     public function archive(){
         $this->archived_at = now();
         $this->update();
-    }
-
-    public function subTasks(): MorphMany{
-        return $this->morphMany(SubTask::class, 'taskable');
     }
 }

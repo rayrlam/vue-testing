@@ -23,15 +23,8 @@ class TodosController extends Controller
         return response()->json($todo);
     }
 
-    public function markUncomplete($todo_id){
-        $todo = Todo::find($todo_id);
-        $todo->markUncomplete();
-        return response()->json($todo);
-    }
-
-    public function progress($todo_id){
-        $todo = Todo::find($todo_id);
-        $todo->markCompleted();
+    public function progress(Todo $todo, $progress){
+        $todo->markProgress($progress);
         return response()->json($todo);
     }
 

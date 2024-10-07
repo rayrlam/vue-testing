@@ -52,7 +52,7 @@ class TodoTest extends TestCase
         $progressArr = collect(["todo","in-progress","completed"]);
 
         $progressArr->each(function ($progress) use($todo){
-            $response = $this->patch(route('todo.progress.update', ['todo'=>$todo->id,'progress'=>$progress]));
+            $response = $this->patch(route('todo.progress.update', ['todo'=>$todo,'progress'=>$progress]));
             $response->assertOk();
     
             tap(Todo::first(), function($todo) use($progress){

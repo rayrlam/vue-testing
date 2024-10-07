@@ -36,7 +36,7 @@ class TodoTest extends TestCase
         $todo = Todo::factory()->create();
         $this->assertFalse($todo->isCompleted);
 
-        $todo->markCompleted();
+        $todo->markProgress('completed');
         $this->assertTrue($todo->isCompleted);
     }
 

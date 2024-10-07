@@ -17,12 +17,8 @@ class Todo extends Model
         static::addGlobalScope(new ArchiveScope);
     }
 
-    public function markCompleted(){
-        return $this->update(['completed' => 1]);
-    }
-
-    public function markUncomplete(){
-        return $this->update(['completed' => 0]);
+    public function markProgress($progress){
+        return $this->update(['progress' => $progress]);
     }
 
     public function getIsCompletedAttribute(){

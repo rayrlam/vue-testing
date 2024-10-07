@@ -10,28 +10,27 @@ class TodoTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test the default value of completed is 0 
-     */
     public function test_the_default_value_of_completed_is_0(): void
     {
         $todo = Todo::factory()->create();
         $this->assertEquals(0, $todo->completed);
     }
 
-    /**
-     * Test can set to completed by mark completed functions
-     */
-    public function test_can_set_to_completed_by_mark_completed_function(): void
+    public function test_todo_can_update_status(): void
     {
         $todo = Todo::factory()->create();
-        $todo->markCompleted();
-        $this->assertTrue(!!$todo->completed);
+        $this->assertEquals($todo->progress, 'todo');
+        
+        $todo->markProgress('in-progress');
+        $this->assertEquals($todo->progress, 'in-progress');
+
+        $todo->markProgress('completed');
+        $this->assertEquals($todo->progress, 'completed');
+
+        $todo->markProgress('todo');
+        $this->assertEquals($todo->progress, 'todo');
     }
 
-    /**
-     * Test can get completed by attribute
-     */
     public function test_can_get_completed_by_attribute(): void
     {
         $todo = Todo::factory()->create();
@@ -41,9 +40,6 @@ class TodoTest extends TestCase
         $this->assertTrue($todo->isCompleted);
     }
 
-    /**
-     * Test todo can be archived
-     */
     public function test_todo_can_be_archived(): void
     {
         $todo = Todo::factory()->create();

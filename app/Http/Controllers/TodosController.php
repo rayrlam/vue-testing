@@ -29,7 +29,7 @@ class TodosController extends Controller
         return response()->json($todo);
     }
 
-    public function markCompleted($todo_id){
+    public function progress($todo_id){
         $todo = Todo::find($todo_id);
         $todo->markCompleted();
         return response()->json($todo);

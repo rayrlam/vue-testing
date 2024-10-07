@@ -8,12 +8,8 @@ use Tests\TestCase;
 
 class TodoTest extends TestCase
 {
-
     use RefreshDatabase;
 
-    /**
-     * Test a Todo can be created.
-     */
     public function test_a_todo_can_be_created(): void
     {
         $response = $this->post(route('todo.store'), [
@@ -23,9 +19,6 @@ class TodoTest extends TestCase
         $this->assertEquals('My First TODO', $response['title']);
     }
 
-    /**
-     * Test two Todos can be created.
-     */
     public function test_two_todos_can_be_created(): void
     {
         $this->post(route('todo.store'), [
@@ -41,9 +34,6 @@ class TodoTest extends TestCase
         $this->assertEquals('My Second TODO', $todo->title);
     }
 
-    /**
-     * Test a Todo title can be edited.
-     */
     public function test_a_todo_can_be_edited(): void
     {
         $todo = Todo::factory()->create(['title' => 'Another Todo']);
@@ -55,33 +45,32 @@ class TodoTest extends TestCase
         $this->assertEquals('Updated Todo Title', $todo->fresh()->title);
     }
 
-    /**
-     * Test mark completed
-     */
-    public function test_mark_completed(): void
+    public function test_todo_can_update_its_status(): void
     {
         $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
 
-        $response = $this->patch(route('todo.completed', $todo->id));
+        $progressArr = collect(["todo","in-progress","completed"]);
 
-        $response->assertOk();
-
-        $this->assertEquals(1, $todo->fresh()->completed);
+        $progressArr->each(function ($progress) use($todo){
+            $response = $this->patch(route('todo.progress.update', ['todo'=>$todo->id,'progress'=>$progress]));
+            $response->assertOk();
+    
+            tap(Todo::first(), function($todo) use($progress){
+                $this->assertEquals($todo->progress, $progress);
+            });
+        });
     }
 
-    /**
-     * Test mark uncomplete
-     */
-    public function test_mark_uncomplete(): void
-    {
-        $todo = Todo::factory()->create(['title' => 'Test Mark Uncomplete']);
+    // public function test_mark_uncomplete(): void
+    // {
+    //     $todo = Todo::factory()->create(['title' => 'Test Mark Uncomplete']);
 
-        $response = $this->patch(route('todo.uncomplete', $todo->id));
+    //     $response = $this->patch(route('todo.uncomplete', $todo->id));
 
-        $response->assertOk();
+    //     $response->assertOk();
 
-        $this->assertEquals(0, $todo->fresh()->completed);
-    }
+    //     $this->assertEquals(0, $todo->fresh()->completed);
+    // }
 
     /**
      * Test todo title cannot be empty

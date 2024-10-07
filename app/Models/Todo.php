@@ -11,7 +11,7 @@ class Todo extends Model
 {
     use HasFactory, Taskable;
 
-    protected $fillable = ['title','completed', 'completed_at','archived_at'];
+    protected $fillable = ['title', 'progress', 'archived_at'];
 
     protected static function booted(): void{
         static::addGlobalScope(new ArchiveScope);
@@ -26,7 +26,7 @@ class Todo extends Model
     }
 
     public function getIsCompletedAttribute(){
-        return !!$this->completed;
+        return $this->progress === 'completed';
     }
 
     public function archive(){

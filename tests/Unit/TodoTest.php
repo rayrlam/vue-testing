@@ -10,10 +10,10 @@ class TodoTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_the_default_value_of_completed_is_0(): void
+    public function test_the_default_value_of_progress_is_todo(): void
     {
         $todo = Todo::factory()->create();
-        $this->assertEquals(0, $todo->completed);
+        $this->assertEquals($todo->progress, 'todo');
     }
 
     public function test_todo_can_update_status(): void

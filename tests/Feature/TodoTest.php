@@ -61,20 +61,6 @@ class TodoTest extends TestCase
         });
     }
 
-    // public function test_mark_uncomplete(): void
-    // {
-    //     $todo = Todo::factory()->create(['title' => 'Test Mark Uncomplete']);
-
-    //     $response = $this->patch(route('todo.uncomplete', $todo->id));
-
-    //     $response->assertOk();
-
-    //     $this->assertEquals(0, $todo->fresh()->completed);
-    // }
-
-    /**
-     * Test todo title cannot be empty
-     */
     public function test_todo_title_cannot_be_empty(): void
     {
 
@@ -84,9 +70,6 @@ class TodoTest extends TestCase
                  ->assertJsonValidationErrors('title');
     }
 
-    /**
-     * Test can create todo with valid title
-     */
     public function test_can_create_todo_with_valid_title(): void
     {
         $response = $this->postJson(route('todo.store'), ['title' => 'Test Todo']);
@@ -97,9 +80,6 @@ class TodoTest extends TestCase
         $this->assertDatabaseHas('todos', ['title' => 'Test Todo']);
     }
     
-    /**
-     * Test todo error message for missing title
-     */
     public function test_todo_error_message_for_missing_title(): void
     {
         $response = $this->postJson(route('todo.store'), []);
@@ -109,9 +89,6 @@ class TodoTest extends TestCase
                  ->assertJson(['message' => 'The title is required.']);
     }
 
-    /**
-     * Test error message for title min length
-     */
     public function test_error_message_for_title_min_length(): void
     {
         $response = $this->postJson(route('todo.store'), ['title'=>'ab']);
@@ -121,9 +98,6 @@ class TodoTest extends TestCase
                  ->assertJson(['message' => 'The title should be at least 3 characters.']);
     }
 
-    /**
-     * Test error message for title max length
-     */
     public function test_error_message_for_title_max_length()
     {
         $response = $this->postJson(route('todo.store'), ['title'=>str()->random(256)]);
@@ -133,9 +107,6 @@ class TodoTest extends TestCase
                  ->assertJson(['message' => 'The title should not more than 255 characters.']);
     }
 
-    /**
-     * Test can be archived
-     */
     public function test_can_be_archived()
     {
         $todo = Todo::factory()->create();

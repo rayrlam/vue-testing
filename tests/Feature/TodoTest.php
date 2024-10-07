@@ -34,7 +34,7 @@ class TodoTest extends TestCase
         $this->assertEquals('My Second TODO', $todo->title);
     }
 
-    public function test_a_todo_can_be_edited(): void
+    public function test_a_todo_title_can_be_edited(): void
     {
         $todo = Todo::factory()->create(['title' => 'Another Todo']);
 
@@ -44,26 +44,9 @@ class TodoTest extends TestCase
 
         $this->assertEquals('Updated Todo Title', $todo->fresh()->title);
     }
-
-    public function test_todo_can_update_its_status(): void
-    {
-        $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
-
-        $progressArr = collect(["todo","in-progress","completed"]);
-
-        $progressArr->each(function ($progress) use($todo){
-            $response = $this->patch(route('todo.progress.update', ['todo'=>$todo,'progress'=>$progress]));
-            $response->assertOk();
     
-            tap(Todo::first(), function($todo) use($progress){
-                $this->assertEquals($todo->progress, $progress);
-            });
-        });
-    }
-
     public function test_todo_title_cannot_be_empty(): void
     {
-
         $response = $this->postJson(route('todo.store'), ['title' => '']);
 
         $response->assertStatus(422)
@@ -113,6 +96,22 @@ class TodoTest extends TestCase
         $this->assertNull($todo->fresh()->archived_at);
         $response = $this->delete(route('todo.archive', ['todo' => $todo->id]));
         $this->assertNotNull($todo->fresh()->archived_at);
+    }
+
+    public function test_todo_can_update_its_status(): void
+    {
+        $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
+
+        $progressArr = collect(["todo","in-progress","completed"]);
+
+        $progressArr->each(function ($progress) use($todo){
+            $response = $this->patch(route('todo.progress.update', ['todo'=>$todo,'progress'=>$progress]));
+            $response->assertOk();
+    
+            tap(Todo::first(), function($todo) use($progress){
+                $this->assertEquals($todo->progress, $progress);
+            });
+        });
     }
 
     /**

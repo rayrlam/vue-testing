@@ -9,6 +9,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class TodoTest extends TestCase
 {
     use RefreshDatabase;
+    
+    private $progressList = ['todo','in-progress','completed'];
 
     public function test_the_default_value_of_progress_is_todo(): void
     {
@@ -16,19 +18,19 @@ class TodoTest extends TestCase
         $this->assertEquals($todo->progress, 'todo');
     }
 
-    public function test_todo_can_update_status(): void
+    public function test_progress_can_be_updated(): void
     {
         $todo = Todo::factory()->create();
+        // default value of progress should be todo 
         $this->assertEquals($todo->progress, 'todo');
         
-        $todo->markProgress('in-progress');
-        $this->assertEquals($todo->progress, 'in-progress');
-
-        $todo->markProgress('completed');
-        $this->assertEquals($todo->progress, 'completed');
-
-        $todo->markProgress('todo');
-        $this->assertEquals($todo->progress, 'todo');
+        $len = 10;
+        for($i = 0; $i < $len; $i++){
+            // test the index 0,1,2 from progressList then test it with the index of random_int 
+            $progress = $i > 2 ? $this->progressList[random_int(0,2)] : $this->progressList[$i];
+            $todo->markProgress($progress);
+            $this->assertEquals($todo->progress, $progress);
+        }    
     }
 
     public function test_can_get_completed_by_attribute(): void

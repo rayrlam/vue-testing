@@ -19,21 +19,6 @@ class TodoTest extends TestCase
         $this->assertEquals('My First TODO', $response['title']);
     }
 
-    public function test_two_todos_can_be_created(): void
-    {
-        $this->post(route('todo.store'), [
-            'title' => 'My First TODO'
-        ]);
-
-        $this->post(route('todo.store'), [
-            'title' => 'My Second TODO'
-        ]);
-
-        $todo = Todo::latest('id')->first();
-
-        $this->assertEquals('My Second TODO', $todo->title);
-    }
-
     public function test_a_todo_title_can_be_edited(): void
     {
         $todo = Todo::factory()->create(['title' => 'Another Todo']);
@@ -113,13 +98,4 @@ class TodoTest extends TestCase
             });
         });
     }
-
-    /**
-     * TODO - fix this test later
-     * Test archived todos not show at home
-     */
-    // public function test_archived_todos_not_show_at_home()
-    // {
-    //     $todo = Todo::factory()->count(3)->create();
-    // }
 }

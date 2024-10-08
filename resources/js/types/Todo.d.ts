@@ -1,9 +1,9 @@
-export type TodoType = "todo" | "in-progress" | "completed";
+export enum TodoProgress { "todo", "in-progress", "completed" }
 
 export interface Todo{
     id: number;
     title: string;
-    progress: TodoType;
+    progress: TodoProgress;
     subtasks: TSubTask[];
     created_at: Date;
     updated_at: Date;

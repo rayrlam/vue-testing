@@ -2,9 +2,10 @@ import { defineStore } from 'pinia';
 import { computed, ref, Ref } from 'vue';
 import axios from "axios";
 import { DateTime } from 'luxon';
-import { Todo } from "../types/Todo";
+import { Todo, TodoProgress } from "../types/Todo.d";
+import { debounce } from 'lodash';
 
-export const useTodoStore = defineStore('todoList', () => {
+export const useTodoStore = defineStore('todos', () => {
     const todos = <Ref<Todo[]>>ref([]);
     const lastFetch = ref(null);
 
@@ -35,12 +36,17 @@ export const useTodoStore = defineStore('todoList', () => {
         lastFetch.value = DateTime.now();
     };
 
-    const updateProgress = (id: number) => {
-        const todo =  todos.value.find((todo)=>todo.id === id);
+    const updateProgress = async (id: number) => {
+        const todo = todos.value.find((todo) => todo.id === id);
+        const progressArr = Object.values(TodoProgress).filter((v) => isNaN(Number(v))) as TodoProgress[];
 
-        if(todo.progress === 'todo') return (todo.progress = "in-progress");
-        if(todo.progress === 'in-progress') return (todo.progress = "completed");
-        if(todo.progress === 'completed') return (todo.progress = "todo");
+        const progressIndex = progressArr.findIndex(progress => progress === todo.progress);
+
+        todo.progress = progressArr[progressIndex + 1] ?? progressArr[0];
+
+        await axios.patch(`/todo/${id}/mark/${todo.progress}`);
+
+       //  debounce( axios.patch(`/todo/${id}/mark/${todo.progress}`), 500);
     }
 
     const updateTitle = async (id: number, title: string) => {

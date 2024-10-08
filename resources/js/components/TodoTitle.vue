@@ -1,8 +1,13 @@
 <template>
     <div class="flex mt-2 mb-2 border-b border-1 pb-2 m-auto">
-        <div class="cursor-pointer ml-2 mr-4 bg-green-500 text-xs text-white rounded-full px-4 py-2">
-            {{ props.progress }}
-        </div>
+        <button 
+            :class="['cursor-pointer ml-2 mr-4 w-32 text-xs text-white py-1', buttonColor]"
+            @click="updateProgress(props.id)"
+        >
+            <div class="text-xs">
+                {{ buttonText }}
+            </div>
+        </button>
  
         <input 
             type="text" 
@@ -32,22 +37,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
-import {TodoType} from "../types/Todo";
+import { ref, onBeforeMount, computed, watch } from "vue";
+import {TodoProgress} from "../types/Todo.d";
 import { useTodoStore } from "../stores/TodoStore";
 import Flyout from "./Flyout.vue";
 
-const {updateTitle, archive} = useTodoStore();
+const { updateProgress, updateTitle, archive } = useTodoStore();
 
 const props = defineProps<{
     id: number;
     title:string;
-    progress: TodoType;
+    progress: TodoProgress;
 }>();
 
 const title = ref('');
-
 const showActions = ref(false);
+
+const buttonColor = computed(() => {
+  switch (props.progress) {
+    case 'todo':
+      return 'bg-orange-500';
+    case 'in-progress':
+      return 'bg-purple-500';
+    case 'completed':
+      return 'bg-green-500';
+  }
+});
+
+const buttonText = computed(() => {
+  switch (props.progress) {
+    case 'todo':
+      return 'Todo';
+    case 'in-progress':
+      return 'In Progress';
+    case 'completed':
+      return 'Completed';
+  }
+});
 
 onBeforeMount(() => {
     title.value = props.title

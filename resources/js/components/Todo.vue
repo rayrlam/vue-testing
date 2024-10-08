@@ -1,8 +1,8 @@
 <template>
     <TodoTitle 
-        progress="todo" 
-        :title="props.todo.title"
         :id="props.todo.id"
+        :title="props.todo.title"
+        :progress="props.todo.progress"
     >
     </TodoTitle>
 
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-    import {Todo} from '../types/Todo';
+    import {Todo} from '../types/Todo.d';
     import SubTask from './SubTask.vue';
     import TodoTitle from './TodoTitle.vue';
 

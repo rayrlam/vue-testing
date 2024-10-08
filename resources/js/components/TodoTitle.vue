@@ -1,7 +1,7 @@
 <template>
     <div class="flex mt-2 mb-2 border-b border-1 pb-2 m-auto">
         <div class="cursor-pointer ml-2 mr-4 bg-green-500 text-xs text-white rounded-full px-4 py-2">
-            {{ props.status }}
+            {{ props.progress }}
         </div>
  
         <input 
@@ -42,7 +42,7 @@ const {updateTitle, archive} = useTodoStore();
 const props = defineProps<{
     id: number;
     title:string;
-    status: TodoType;
+    progress: TodoType;
 }>();
 
 const title = ref('');

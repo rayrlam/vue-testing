@@ -83,7 +83,7 @@ class TodoTest extends TestCase
         $this->assertNotNull($todo->fresh()->archived_at);
     }
 
-    public function test_todo_can_update_its_status(): void
+    public function test_todo_can_update_its_progress(): void
     {
         $todo = Todo::factory()->create(['title' => 'Test Mark Completed']);
 

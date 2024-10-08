@@ -1,6 +1,6 @@
 <template>
     <TodoTitle 
-        status="todo" 
+        progress="todo" 
         :title="props.todo.title"
         :id="props.todo.id"
     >

@@ -22,7 +22,7 @@ describe('TodoTitle', () => {
             },
             props: {
                 id: 1,
-                status: "todo",
+                progress: "todo",
                 title: "New Todo",
             }
         });

@@ -35,12 +35,12 @@ export const useTodoStore = defineStore('todoList', () => {
         lastFetch.value = DateTime.now();
     };
 
-    const updateStatus = (id: number) => {
+    const updateProgress = (id: number) => {
         const todo =  todos.value.find((todo)=>todo.id === id);
 
-        if(todo.status === 'todo') return (todo.status = "in-progress");
-        if(todo.status === 'in-progress') return (todo.status = "completed");
-        if(todo.status === 'completed') return (todo.status = "todo");
+        if(todo.progress === 'todo') return (todo.progress = "in-progress");
+        if(todo.progress === 'in-progress') return (todo.progress = "completed");
+        if(todo.progress === 'completed') return (todo.progress = "todo");
     }
 
     const updateTitle = async (id: number, title: string) => {
@@ -62,7 +62,7 @@ export const useTodoStore = defineStore('todoList', () => {
         fetchLatest,
         fetch,
         create,
-        updateStatus,
+        updateProgress,
         updateTitle,
         archive,
     };

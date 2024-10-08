@@ -3,7 +3,7 @@ export type TodoType = "todo" | "in-progress" | "completed";
 export interface Todo{
     id: number;
     title: string;
-    status: TodoType;
+    progress: TodoType;
     subtasks: TSubTask[];
     created_at: Date;
     updated_at: Date;

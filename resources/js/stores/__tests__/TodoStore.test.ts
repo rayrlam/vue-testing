@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createPinia, setActivePinia } from "pinia";
+import { createPinia, setActivePinia, storeToRefs } from "pinia";
 import { useTodoStore } from "../TodoStore";
 
 vi.mock('axios');
@@ -18,6 +18,7 @@ const expectedResponse = {
         ]
     }
 };
+
 
 describe('TodoStore',() => {
     beforeEach(() => {
@@ -56,6 +57,25 @@ describe('TodoStore',() => {
             await store.fetch();
             expect(axios.get).toBeCalledTimes(3);
 
+        })
+    })
+
+    describe('progress', () => {
+        test('can be updated its',  async () => {
+            const store = useTodoStore();
+            store.todos.push({id: 1, title: 'My first test', progress: 'todo'});
+            expect(store.todos[0].progress).to.equal('todo');
+
+            await store.updateProgress(1);
+            expect(store.todos[0].progress).to.equal('in-progress');
+
+            await store.updateProgress(1);
+            expect(store.todos[0].progress).to.equal('completed');
+
+            await store.updateProgress(1);
+            expect(store.todos[0].progress).to.equal('todo');
+
+            expect(axios.patch).toHaveBeenCalledTimes(3);
         })
     })
 });

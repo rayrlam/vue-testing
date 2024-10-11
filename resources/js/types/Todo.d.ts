@@ -13,8 +13,8 @@ export interface Todo{
 }
 
 export type TSubTask =  {
-    'id': number;
-    'body' : string;
-    'is_task' : boolean;
-    'subtasks'? : TSubTask[];
+    id: number;
+    body : string;
+    is_task : boolean;
+    subtasks? : TSubTask[];
 }

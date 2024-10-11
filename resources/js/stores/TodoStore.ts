@@ -3,7 +3,7 @@ import { computed, ref, Ref } from 'vue';
 import axios from "axios";
 import { DateTime } from 'luxon';
 import { Todo, TodoProgress } from "../types/Todo.d";
-import { debounce } from 'lodash';
+import { debounce } from '../utils/utilities';
 
 export const useTodoStore = defineStore('todos', () => {
     const todos = <Ref<Todo[]>>ref([]);
@@ -39,14 +39,9 @@ export const useTodoStore = defineStore('todos', () => {
     const updateProgress = async (id: number) => {
         const todo = todos.value.find((todo) => todo.id === id);
         const progressArr = Object.values(TodoProgress).filter((v) => isNaN(Number(v))) as TodoProgress[];
-
         const progressIndex = progressArr.findIndex(progress => progress === todo.progress);
-
         todo.progress = progressArr[progressIndex + 1] ?? progressArr[0];
-
-        await axios.patch(`/todo/${id}/mark/${todo.progress}`);
-
-       //  debounce( axios.patch(`/todo/${id}/mark/${todo.progress}`), 500);
+        debounce(() => axios.patch(`/todo/${id}/mark/${todo.progress}`), 500);
     }
 
     const updateTitle = async (id: number, title: string) => {

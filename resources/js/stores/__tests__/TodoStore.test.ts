@@ -67,15 +67,18 @@ describe('TodoStore',() => {
             expect(store.todos[0].progress).to.equal('todo');
 
             await store.updateProgress(1);
+            vi.advanceTimersByTime(499);
             expect(store.todos[0].progress).to.equal('in-progress');
 
             await store.updateProgress(1);
+            vi.advanceTimersByTime(499);
             expect(store.todos[0].progress).to.equal('completed');
 
             await store.updateProgress(1);
+            vi.advanceTimersByTime(500);
             expect(store.todos[0].progress).to.equal('todo');
 
-            expect(axios.patch).toHaveBeenCalledTimes(3);
+            expect(axios.patch).toHaveBeenCalledTimes(1);
         })
     })
 });

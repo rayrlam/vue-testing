@@ -5,7 +5,7 @@
         "dev": "vite",
         "build": "vite build",
         "test": "vitest",
-        "lint": "eslint --debug --fix resources/js",
+        "lint": "eslint --debug --fix 'resources/js/**/*.{js,ts,vue}'",
         "format": "prettier resources/js  --write"
     },
     "devDependencies": {

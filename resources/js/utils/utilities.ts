@@ -7,6 +7,6 @@ export const debounce = (
     if (debounceFunction) {
         clearTimeout(debounceFunction);
     }
-    
+
     debounceFunction = setTimeout(callback, timeout);
 };

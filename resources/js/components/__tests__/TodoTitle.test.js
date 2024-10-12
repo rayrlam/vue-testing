@@ -1,10 +1,11 @@
-const { shallowMount } = require("@vue/test-utils");
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { shallowMount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import axios from "axios";
 import { useTodoStore } from "../../stores/TodoStore";
 import TodoTitle from "../TodoTitle.vue";
-import {nextTick} from "vue";
 
+ 
 let wrapper;
 let store;
 
@@ -52,7 +53,7 @@ describe('TodoTitle', () => {
         expect(wrapper.props('title')).toBe('New Todo'); 
 
         // But the internal ref does
-        expect(wrapper.vm.title).toBe('Updated Title'); 
+        expect(wrapper.vm.localTitle).toBe('Updated Title'); 
 
         // Store State Check
         expect(store.todos[0].title).toBe('Updated Title');

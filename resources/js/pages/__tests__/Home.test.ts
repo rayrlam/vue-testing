@@ -26,7 +26,6 @@ describe( 'HomePage', () =>
     let wrapper;
     let store;
     let getStub;
-    let postStub;
 
     beforeEach( () =>
     {
@@ -40,7 +39,7 @@ describe( 'HomePage', () =>
         getStub = sinon.stub( axios, "get" ).resolves( expectedResponse );
 
         // Stub axios.post to simulate creating a new todo
-        postStub = sinon.stub( axios, "post" ).resolves( {
+        sinon.stub( axios, "post" ).resolves( {
             data: { todo: { id: 3, title: 'Third Todo' } }
         } );
 

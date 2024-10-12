@@ -1,6 +1,7 @@
 import axios from "axios";
-import { createPinia, setActivePinia, storeToRefs } from "pinia";
+import { createPinia, setActivePinia } from "pinia";
 import { useTodoStore } from "../TodoStore";
+import { describe,  expect, vi, beforeEach, afterEach, test } from 'vitest';
 
 vi.mock('axios');
 
@@ -18,7 +19,6 @@ const expectedResponse = {
         ]
     }
 };
-
 
 describe('TodoStore',() => {
     beforeEach(() => {

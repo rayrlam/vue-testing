@@ -1,6 +1,8 @@
 <template>
-    <router-link to="/">Home</router-link>
-    <router-view></router-view>
+  <router-link to="/">
+    Home
+  </router-link>
+  <router-view />
 </template>
 
 <script setup lang="ts">

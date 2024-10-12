@@ -1,4 +1,5 @@
 import { debounce } from '../utilities';
+import { describe, beforeEach, vi, afterEach, it, expect } from 'vitest';
 
 describe('Utilities', () => {
     beforeEach(() => {

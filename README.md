@@ -115,10 +115,6 @@ Vitest is a blazing fast unit test framework powered by Vite. It's designed to b
     npm run test
     ```
 
-## Contributing
-
-We welcome contributions! Please feel free to submit a Pull Request.
-
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 w-full m-auto flex space-x-2">
     <input
-      v-model=" todoTitle "
+      v-model="todoTitle"
       type="text"
       class="text-sm md:text-base px-2 py-1 w-64 md:w-96"
       placeholder="New Todo"
@@ -11,7 +11,7 @@
       title="Add a todo"
       class="w-10 h-10 p-2  bg-slate-200 text-slate-800 shadow rounded"
       data-testid="create-todo-btn"
-      @click=" createTodo "
+      @click="createTodo"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -39,35 +39,42 @@
       />
     </transition>
   </div>
+
+  <AlertModal
+    ref="alertModal"
+    message="Todo content cannot be empty!"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue';
 import { useTodoStore } from '../stores/TodoStore';
 import Todo from "../components/TodoContainer.vue";
+import AlertModal from "../components/AlertModal.vue";
 
 const todoStore = useTodoStore();
-
-onBeforeMount( () =>
-{
-    todoStore.fetch();
-} );
-
+const alertModal = ref<InstanceType<typeof AlertModal> | null>(null);
 const todoTitle = ref( '' );
 
-const createTodo = async () =>
-{
-    try
-    {
-        await todoStore.create( todoTitle.value );
-        todoTitle.value = ''; // Clear the input after creation
-        await todoStore.fetchLatest(); // Fetch the latest todos after creation
-    } catch ( error )
-    {
-        console.error( 'Error creating todo:', error );
-    }
-};
+onBeforeMount(() => {
+  todoStore.fetch();
+});
 
+const createTodo = async () => {
+  if (todoTitle.value.trim() === '') {
+    // Show the alert modal if the todo content is empty
+    alertModal.value?.show();
+    return;
+  }
+
+  try {
+    await todoStore.create( todoTitle.value );
+    todoTitle.value = ''; // Clear the input after creation
+    await todoStore.fetchLatest(); // Fetch the latest todos after creation
+  } catch ( error ) {
+    console.error( 'Error creating todo:', error );
+  }
+};
 </script>
 
 <style>

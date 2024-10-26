@@ -1,6 +1,6 @@
 # Vue.js Testing Playground
 
-![Laravel](https://img.shields.io/badge/Laravel-^11.23.5-blue)
+![Laravel](https://img.shields.io/badge/Laravel-^11.29.0-blue)
 ![Vue](https://img.shields.io/badge/Vue-^3.5.7-yellow)
 ![Vitest](https://img.shields.io/badge/Vitest-^3.5.7-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)

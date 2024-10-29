@@ -7,7 +7,9 @@ import { debounce } from '../utils/utilities';
 
 export const useTodoStore = defineStore('todos', () => {
     const todos = <Ref<Todo[]>>ref([]);
-    const lastFetch = ref(null);
+    
+    // Allow null or DateTime
+    const lastFetch = ref<DateTime | null>(null); 
 
     const list = computed(() => {
         return todos.value;
@@ -38,10 +40,14 @@ export const useTodoStore = defineStore('todos', () => {
 
     const updateProgress = async (id: number) => {
         const todo = todos.value.find((todo) => todo.id === id);
-        const progressArr = Object.values(TodoProgress).filter((v) => isNaN(Number(v))) as TodoProgress[];
-        const progressIndex = progressArr.findIndex(progress => progress === todo.progress);
-        todo.progress = progressArr[progressIndex + 1] ?? progressArr[0];
-        debounce(() => axios.patch(`/todo/${id}/mark/${todo.progress}`), 500);
+
+        // Check if todo exists
+        if (todo) {
+            const progressArr = Object.values(TodoProgress).filter((v) => isNaN(Number(v))) as TodoProgress[];
+            const progressIndex = progressArr.findIndex(progress => progress === todo.progress);
+            todo.progress = progressArr[progressIndex + 1] ?? progressArr[0];
+            debounce(() => axios.patch(`/todo/${id}/mark/${todo.progress}`), 500);
+        } 
     }
 
     const updateTitle = async (id: number, title: string) => {
@@ -52,7 +58,12 @@ export const useTodoStore = defineStore('todos', () => {
     const archive = async (id: number) => {
         const response = await axios.delete(`/todo/${id}`);    
         const todo = todos.value.find((todo) => todo.id === id);
-        todo.meta = {archived: true};
+        
+        // Check if todo exists
+        if (todo) { 
+            todo.meta = {archived: true};
+        }
+ 
         return response;
     }
 

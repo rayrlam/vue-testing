@@ -5,7 +5,10 @@
   >
     <div class="modal-content">
       <p>{{ message }}</p>
-      <button @click="close" class="px-4 py-1 bg-stone-800 text-white mt-4">
+      <button
+        @click="close"
+        class="px-4 py-1 bg-stone-800 text-white mt-4"
+      >
         Close
       </button>
     </div>

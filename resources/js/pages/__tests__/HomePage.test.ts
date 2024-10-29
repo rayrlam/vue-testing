@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import { useTodoStore } from "../../stores/TodoStore";
-import TodoList from "../HomePage.vue";
+import HomePage from "../HomePage.vue";
 import axios from "axios";
-import sinon from 'sinon';
+import sinon, { SinonStub } from 'sinon';
 
 const expectedResponse = {
     data: {
@@ -23,9 +23,9 @@ const expectedResponse = {
 
 describe( 'HomePage', () =>
 {
-    let wrapper;
-    let store;
-    let getStub;
+    let wrapper: VueWrapper;
+    let store: ReturnType<typeof useTodoStore>;
+    let getStub: SinonStub;
 
     beforeEach( () =>
     {
@@ -43,7 +43,7 @@ describe( 'HomePage', () =>
             data: { todo: { id: 3, title: 'Third Todo' } }
         } );
 
-        wrapper = mount( TodoList, {
+        wrapper = mount( HomePage, {
             global: {
                 plugins: [ pinia ],
             },

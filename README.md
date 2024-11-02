@@ -23,9 +23,45 @@ This Todo application is being developed using Test-Driven Development (TDD) pri
 - Todo item categorization and filtering
 - Due date and priority setting for todo items
 
+## Testing with PHPUnit
+
+This project uses PHPUnit for unit testing. PHPUnit is a popular testing framework for PHP that allows you to write and run tests effectively.
+
+### Running Tests
+
+To run the PHPUnit tests, use the following command:
+
+```bash
+./vendor/bin/phpunit
+```
+
+This will execute all tests in the `tests` directory by default.
+
+### Running Specific Tests
+
+To run a specific test file, use:
+
+```bash
+./vendor/bin/phpunit tests/ExampleTest.php
+```
+
+To run a specific test method within a test class, use:
+
+```bash
+./vendor/bin/phpunit --filter testMethodName tests/ExampleTest.php
+```
+
+### Viewing Test Reports
+
+By default, PHPUnit outputs the results in the console. To generate an HTML report, you can use the following command:
+
+```bash
+./vendor/bin/phpunit --report-html report.html
+```
+
 ## Testing with Vitest
 
-This project uses Vitest for unit and component testing of Vue applications.
+This project utilizes Vitest to conduct unit and component testing for Vue applications.
 
 ### Why Vitest?
 
@@ -36,6 +72,66 @@ Vitest is a blazing fast unit test framework powered by Vite. It's designed to b
 - Jest-compatible API
 - Built-in code coverage
 - ESM, TypeScript and JSX support out of the box
+
+## Testing with Playwright
+
+This project leverages Playwright to perform end-to-end testing, enabling us to write and execute tests across all modern web browsers.
+
+### Running Tests
+
+To run the Playwright tests, use the following command:
+
+```bash
+npx playwright test
+```
+
+This will run all tests in headless mode by default.
+
+### Running Tests in UI Mode
+
+For a better developer experience with time travel debugging and watch mode, you can run tests in UI mode:
+
+```bash
+npx playwright test --ui
+```
+
+### Running Specific Tests
+
+To run a single test file:
+
+```bash
+npx playwright test tests/example.spec.ts
+```
+
+To run tests with a specific title:
+
+```bash
+npx playwright test -g "test title"
+```
+
+### Viewing Test Reports
+
+After running tests, you can view the HTML report:
+
+```bash
+npx playwright show-report
+```
+
+### Debugging Tests
+
+To debug tests, you can run them in headed mode:
+
+```bash
+npx playwright test --headed
+```
+
+Or use the debug mode with Playwright Inspector:
+
+```bash
+npx playwright test --debug
+```
+
+For more information on using Playwright, refer to the [official Playwright documentation](https://playwright.dev/docs/intro).
 
 ## Getting Started
 
@@ -104,7 +200,7 @@ Vitest is a blazing fast unit test framework powered by Vite. It's designed to b
 
 ## Running Tests
 
-- To run PHP tests:
+- To run PHPUnit:
 
     ```
     php artisan test
@@ -113,6 +209,10 @@ Vitest is a blazing fast unit test framework powered by Vite. It's designed to b
 
     ```
     npm run test
+    ```
+- To run Playwright:
+    ```
+    npx playwright test
     ```
 
 ## License

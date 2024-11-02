@@ -1,10 +1,10 @@
 <template>
   <div class="flex mt-2 mb-2 border-b border-1 pb-2 m-auto">
     <button
-      :class=" [ 'cursor-pointer ml-2 mr-4 w-32 text-xs text-white py-1', buttonColor ] "
+      :class="['cursor-pointer mx-2 w-32 text-[0.625rem] text-white', buttonColor ]"
       @click="updateProgress( props.id )"
     >
-      <div class="text-xs">
+      <div class="text-[0.625rem]">
         {{ buttonText }}
       </div>
     </button>

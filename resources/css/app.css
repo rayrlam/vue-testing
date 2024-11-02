@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.router-view-content {
+    @apply flex flex-col items-center w-full;
+}

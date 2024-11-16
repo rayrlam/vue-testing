@@ -9,10 +9,14 @@ test.describe('Home Page', () => {
         await page.waitForSelector('body');
     });
 
-    test('should display Todo text', async ({ page }) => {
+    test('should display Todo link', async ({ page }) => {
         // Check if the text 'Todo' is visible on the page
-        const todoText = await page.getByText('Todo', { exact: true });
-        await expect(todoText).toBeVisible();
+        const todoLink = await page.getByRole('link', { name: 'Todo' });
+        await expect(todoLink).toBeVisible();
+
+        // Verify that the link points to the root URL, accounting for hash-based routing
+        const href = await todoLink.getAttribute('href');
+        expect(href === '/' || href === '#/').toBe(true);
     });
 
     test('should have an input with placeholder "New Todo"', async ({ page }) => {
@@ -41,7 +45,6 @@ test.describe('Home Page', () => {
         const createTodoButton = page.getByTestId('create-todo-btn');
         await createTodoButton.click();
 
-
         // Wait for the modal to appear using the class "modal-content"
         const modal = page.locator('.modal-content');
         await expect(modal).toBeVisible();
@@ -57,5 +60,47 @@ test.describe('Home Page', () => {
         // Test closing the modal
         await closeButton.click();
         await expect(modal).not.toBeVisible();
+    });
+
+    test('can create a new todo', async({page}) => {
+
+        // Get the input field and the create button
+        const inputField = page.getByPlaceholder('New Todo');
+        const createButton = page.getByTestId('create-todo-btn');
+
+        // Check if the input field and create button are visible
+        await expect(inputField).toBeVisible();
+        await expect(createButton).toBeVisible();
+
+        // Count the initial number of todo items
+        const initialTodoCount = await page.getByTestId('todo-list-item').count();
+
+        // Type a new todo into the input field
+        const newTodoText = 'New test todo';
+        await inputField.fill(newTodoText);
+
+        // Click the create button
+        await createButton.click();
+
+        // Wait for the todo list to update
+        await page.waitForFunction((initialCount) => {
+            return document.querySelectorAll('[data-testid="todo-list-item"]').length > initialCount;
+        }, initialTodoCount);
+
+        // Check if the number of todo items has increased
+        const newTodoCount = await page.getByTestId('todo-list-item').count();
+        expect(newTodoCount).toBe(initialTodoCount + 1);
+
+        // Get the last todo item
+        const lastTodoItem = page.getByTestId('todo-list-item').last();
+
+        // Find the input element within the last todo item
+        const todoTitleInput = lastTodoItem.getByTestId('todo-title-input');
+
+        // Check if the new todo text is in the input
+        await expect(todoTitleInput).toHaveValue(newTodoText);
+
+        // Check if the main input field is cleared after creating the todo
+        await expect(inputField).toHaveValue('');
     });
 });
